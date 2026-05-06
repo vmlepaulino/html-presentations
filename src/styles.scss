@@ -1,0 +1,96 @@
+/* ============================================================
+   Global Styles – Microsoft Fluent / Azure-inspired light theme
+   To change the theme, update the CSS variables in :root
+   ============================================================ */
+
+/* --- Google Fonts fallback (Segoe UI is system font on Windows) --- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Brand colours */
+  --color-primary: #0078d4;       /* Azure blue */
+  --color-primary-dark: #005a9e;
+  --color-primary-light: #deecf9;
+  --color-teal: #008575;
+  --color-teal-light: #d2f0eb;
+  --color-purple: #5c2d91;
+  --color-purple-light: #e9d9f5;
+
+  /* Neutrals */
+  --color-bg: #ffffff;
+  --color-surface: #f5f7fa;
+  --color-surface-alt: #eef1f6;
+  --color-border: #dde1e7;
+  --color-text: #1b1b1b;
+  --color-text-secondary: #444c55;
+  --color-text-muted: #6e7a8a;
+
+  /* Shadows */
+  --shadow-card: 0 2px 8px rgba(0,0,0,0.08), 0 0 1px rgba(0,0,0,0.06);
+  --shadow-elevated: 0 4px 16px rgba(0,0,0,0.10), 0 1px 4px rgba(0,0,0,0.06);
+
+  /* Typography */
+  --font-family: 'Segoe UI', 'Inter', system-ui, sans-serif;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-md: 1.125rem;
+  --font-size-lg: 1.375rem;
+  --font-size-xl: 1.875rem;
+  --font-size-2xl: 2.5rem;
+  --font-size-3xl: 3.25rem;
+
+  /* Spacing */
+  --radius: 6px;
+  --radius-lg: 10px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-family);
+  /* Fluid base font: scales smoothly between 16px and 22px depending on viewport width */
+  font-size: clamp(16px, 1.05vw + 0.55rem, 22px);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (min-width: 1800px) {
+  html, body { font-size: clamp(20px, 1.1vw + 0.5rem, 26px); }
+}
+
+/* Code blocks */
+pre, code {
+  font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+  font-size: 0.52rem;
+}
+
+pre {
+  background: #f6f8fa;
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-primary);
+  border-radius: var(--radius);
+  padding: 0.55rem 0.75rem;
+  overflow-x: auto;
+  line-height: 1.4;
+  color: #1f2937;
+}
+
+/* Utility: visually hidden */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+}

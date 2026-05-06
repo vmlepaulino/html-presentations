@@ -1,0 +1,120 @@
+:host {
+  display: block;
+  height: 100vh;
+  width: 100vw;
+  background: var(--color-bg);
+}
+
+.stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+/* Top progress bar */
+.progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--color-surface-alt);
+  z-index: 10;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-purple));
+  transition: width 350ms ease;
+}
+
+/* Slide area */
+.slide-area {
+  flex: 1;
+  display: flex;
+  /* `safe center` prevents content taller than viewport from being clipped at the top */
+  align-items: safe center;
+  justify-content: safe center;
+  overflow: auto;
+  padding: 0.5rem;
+
+  /* Subtle background pattern */
+  background:
+    radial-gradient(circle at 0% 0%, var(--color-primary-light) 0, transparent 40%),
+    radial-gradient(circle at 100% 100%, var(--color-purple-light) 0, transparent 45%),
+    var(--color-bg);
+  background-attachment: fixed;
+}
+
+.slide-frame {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Footer */
+.footer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.5rem;
+  border-top: 1px solid var(--color-border);
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(8px);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  z-index: 10;
+}
+
+.presenter {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 500;
+}
+.brand-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-primary);
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.nav-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  background: #fff;
+  color: var(--color-text-secondary);
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 150ms ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.nav-btn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-light);
+}
+.nav-btn:active { transform: scale(0.96); }
+
+.indicator {
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  min-width: 50px;
+  text-align: center;
+}
