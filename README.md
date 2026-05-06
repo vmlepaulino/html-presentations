@@ -14,6 +14,13 @@ npm start
 
 Open http://localhost:4200
 
+Presenter script view:
+
+- http://localhost:4200/presenter=true
+- http://localhost:4200/?presenter=true
+
+On two-column slides, the presenter view now shows matching left/right script cards so it is obvious which part of the talk each paragraph belongs to.
+
 ## Navigation
 
 | Action            | Key / Gesture                       |

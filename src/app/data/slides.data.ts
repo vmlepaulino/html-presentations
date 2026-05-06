@@ -11,7 +11,7 @@ export const SLIDES: Slide[] = [
     eyebrow: 'Global Azure 2026',
     title: 'From Cloud to Agents',
     subtitle: 'Building AI-Centric Systems on Azure',
-    note: '30-minute architect-level session.'
+    note: 'Welcome everyone. Today we trace a path from cloud-native platform engineering to AI agents, Azure Local Foundry, and the new avatar interface. Over the next 30 minutes, I want you to see how Azure lets developers keep control while building systems that reason, act, and stay compliant. This session is practical, architectural, and designed for people who build the systems behind the experiences.'
   },
 
   // --- Keynote recap (session 1 of the event) ---
@@ -41,7 +41,7 @@ export const SLIDES: Slide[] = [
         { text: 'Responsible transformation — preserve trust + data autonomy' }
       ]
     },
-    note: 'Frames the entire day: every session that follows answers a piece of this.'
+    note: 'This slide sets the stage. The keynote says innovation is moving faster than ever, but trust, sovereignty and compliance cannot be afterthoughts. Azure answers with a cloud that is both AI-first and governance-first, so teams can innovate while meeting policy demands. Keep this framing in mind as we move through agents, local infrastructure and semantic data.'
   },
 
   // --- What it means for developers & engineering ---
@@ -71,7 +71,7 @@ export const SLIDES: Slide[] = [
         { text: 'Governance, lineage and audit baked into the platform' }
       ]
     },
-    note: 'Innovation without compromise = velocity AND control, in the same architecture.'
+    note: 'This is the developer translation of the keynote. On one side, developers must build with AI primitives — models, agents, tools and memory — while treating data residency and identity as first-class APIs. On the other side, engineering teams need observability, multi-region design and auditability baked in from day one. The architecture we are describing keeps speed and control together.'
   },
 
   // ============================================================
@@ -84,7 +84,8 @@ export const SLIDES: Slide[] = [
     type: 'section',
     eyebrow: 'Keynote · Session 2',
     title: 'The Future of AI is Agentic',
-    subtitle: 'Microsoft Agent Framework — systems that reason, plan, and act'
+    subtitle: 'Microsoft Agent Framework — systems that reason, plan, and act',
+    note: 'This is the second part of our story: the Microsoft Agent Framework. We are moving from what AI can do conceptually to how it actually becomes a system that reasons, plans and acts. Think of this as the runtime layer where your intelligence meets your business processes.'
   },
 
   {
@@ -109,7 +110,7 @@ export const SLIDES: Slide[] = [
         accent: 'teal'
       }
     ],
-    note: 'An agent is a closed loop: perceive → reason → act → observe → repeat.'
+    note: 'Inside an agent, there are three core primitives. Inputs are everything the agent observes: user requests, system instructions, context, tool results and history. Capabilities are the reasoning, planning, memory and guardrails that decide what to do. Outputs are the actions, decisions, or structured responses that actually move the system forward.'
   },
 
   {
@@ -139,7 +140,8 @@ export const SLIDES: Slide[] = [
         { text: 'Knowledge work — analysis, summarisation, reporting' },
         { text: 'Developer productivity — code, tests, reviews' }
       ]
-    }
+    },
+    note: 'Agents are not one-size-fits-all. Some are single-task automation with a tool, while others are orchestrators coordinating multiple specialists. Human-in-the-loop patterns keep oversight in place, and retrieval-augmented designs ground the agent in enterprise data. The right pattern depends on whether the problem needs a single voice, a team, or a critic.'
   },
 
   {
@@ -327,7 +329,7 @@ await foreach (var update in agent.RunStreamingAsync(
         ]
       }
     ],
-    note: 'Same SDK, same agent abstraction — only the composition changes.'
+    note: 'This code example shows how the same SDK becomes multiple agent patterns. First, a streaming chatbot sends tokens back as they are generated. Second, a sequential researcher → writer → editor workflow composes focused responsibilities. Third, a fan-out architecture runs specialists in parallel and merges their work. The message is that agent architecture is composition, not a new language.'
   },
 
   {
@@ -404,7 +406,7 @@ await foreach (var update in agent.RunStreamingAsync(
         }
       ]
     },
-    note: 'Pick the template that matches the trigger; pick the host that matches the SLA. The agent code does not change.'
+    note: 'Once code exists, the question is how you surface it. The Agent Framework is a library, so the same logic can run as a console app, web API, worker service, Functions, Blazor, Teams app or an MCP server. Then choose the host that matches your SLA: App Service, Container Apps, AKS, Foundry, edge hardware or Azure Local. That separation gives you flexibility without changing your business logic.'
   },
 
   {
@@ -433,7 +435,7 @@ await foreach (var update in agent.RunStreamingAsync(
         { text: 'Same governance plane as pro-code agents' }
       ]
     },
-    note: 'Pro-code and low-code converge on the same Foundry runtime.'
+    note: 'This slide shows the breadth of Microsoft tooling. Developers use GitHub Copilot, the Agent Framework and Foundry SDKs. Makers use Copilot Studio, connectors and visual prompt flows. The important point is that pro-code and low-code are not separate islands; they converge on the same runtime and governance fabric.'
   },
 
   {
@@ -442,7 +444,7 @@ await foreach (var update in agent.RunStreamingAsync(
     eyebrow: 'Agent runtime',
     title: 'Microsoft Foundry',
     subtitle: 'From running an agent locally to deploying governed AI at scale',
-    note: 'Transition: we know how to build agents — now how do we host, ship and govern them?'
+    note: 'Now we shift from building agents to hosting and governing them. Microsoft Foundry is the runtime where agents are deployed, observed and managed. It is the place that makes agent workloads production-ready, with versioning, safety and telemetry all in one system.'
   },
 
   {
@@ -478,7 +480,7 @@ await foreach (var update in agent.RunStreamingAsync(
         accent: 'purple'
       }
     ],
-    note: 'Same ecosystem powers Microsoft 365 Copilot, custom agents, and partner solutions.'
+    note: 'Foundry is an ecosystem, not just a single service. Channels and surfaces like Copilot, Teams, web and custom apps live at the top, while agents are built and versioned below. Knowledge, tools and models ground them, and trust, identity and governance make them enterprise-ready. This is the platform that powers both Microsoft 365 and custom agent solutions.'
   },
 
   // ============================================================
@@ -511,7 +513,7 @@ await foreach (var update in agent.RunStreamingAsync(
         { text: 'Same governance as the rest of your Azure estate' }
       ]
     },
-    note: 'The portal is one client. Bicep, ARM, Terraform and the REST API are equally valid.'
+    note: 'Foundry projects are still Azure resources. Everything you create in the portal can be expressed as ARM, Bicep, Terraform or REST. That means reproducible environments, reviewable pull requests and policy-driven governance. The important takeaway is that Infrastructure-as-Code is the standard for AI projects, not a nice-to-have.'
   },
 
   {
@@ -546,7 +548,7 @@ await foreach (var update in agent.RunStreamingAsync(
         accent: 'teal'
       }
     ],
-    note: 'Pattern proven in Azure-Samples/get-started-with-ai-agents — ~36% Bicep, ~30% Python, all in one repo.'
+    note: 'This repository layout demonstrates the project-as-code pattern. `azure.yaml` defines the azd entrypoint, `infra/` contains Bicep modules, `src/` contains agent definitions, `scripts/` runs post-provision automation, and `tests/` holds evals and red-team checks. It is a disciplined repo structure for AI engineering, not just another demo folder.'
   },
 
   {
@@ -578,7 +580,7 @@ await foreach (var update in agent.RunStreamingAsync(
         { text: 'Drift detection via `azd provision --preview` or `what-if`' }
       ]
     },
-    note: 'GitHub Actions or Azure DevOps — both are first-class with azd templates.'
+    note: 'AI must flow through the same DevOps pipeline you already trust. PR validation, what-if analysis, azd provision, deploy, and then evaluation and red-team gates. Promote from dev to test to prod. Every change should be versioned, reviewed, and roll-backable through standard release practices.'
   },
 
   // ============================================================
@@ -591,7 +593,7 @@ await foreach (var update in agent.RunStreamingAsync(
     eyebrow: 'Edge & sovereign cloud',
     title: 'Azure Local',
     subtitle: 'Bring the Azure operating model to your hardware — on-premises or at the edge',
-    note: 'Transition: agents and Foundry run in the cloud — but what if your data or latency requirements say otherwise?'
+    note: 'Here we pivot to Azure Local — the cloud operating model on-premises or at the edge. This is where data residency, latency and resilience requirements become the primary drivers. We are not leaving the cloud; we are extending its control model to environments that cannot rely on a public-region round trip.'
   },
 
   {
@@ -622,7 +624,7 @@ await foreach (var update in agent.RunStreamingAsync(
         { text: 'A pragmatic on-ramp for teams still moving off on-premises' }
       ]
     },
-    note: 'Adaptive cloud: bring the cloud to where you are, without forking your operating model.'
+    note: 'Azure Local is not a separate cloud. It is Azure capabilities running on customer-owned hardware, managed through Arc. The same portal, CLI, ARM templates, policy and monitoring experience applies, but the compute and data remain where the business needs them. This is the operating model that lets Azure bridge to on-premises and edge environments.'
   },
 
   {
@@ -651,7 +653,7 @@ await foreach (var update in agent.RunStreamingAsync(
         { text: 'Designed for sovereign, classified, maritime and remote-site scenarios' }
       ]
     },
-    note: 'You design the sync cadence — continuous, scheduled, or human-mediated.'
+    note: 'Azure Local supports both connected and disconnected operation. Connected mode keeps the site managed from Azure with telemetry, policy and updates. Disconnected mode makes the site autonomous, with local identity, local management and buffered sync. The key design decision is whether the environment needs continuous cloud connectivity or can operate independently for periods of time.'
   },
 
   {
@@ -682,7 +684,7 @@ await foreach (var update in agent.RunStreamingAsync(
         { text: 'Capacity planning shifts from elastic to fixed — design for the box you have' }
       ]
     },
-    note: 'Not a substitute for the cloud — a deliberate extension of it.'
+    note: 'This slide shows where Azure Local truly earns its place: regulated finance, healthcare, manufacturing, remote sites and government. It is not the default for every application. It is a deliberate extension of the cloud for workloads that need low latency, sovereignty or resilience close to the data.'
   },
 
   // ============================================================
@@ -718,7 +720,7 @@ await foreach (var update in agent.RunStreamingAsync(
         { text: 'Not a lift-and-shift shortcut — workloads still need design choices' }
       ]
     },
-    note: 'Use it when the workload has a real reason to stay close to the data.'
+    note: 'This is the mental model: Azure Local is the control plane, your infrastructure is the data and compute plane. It is not Azure installed on your rack, and it is not a replacement for existing virtualization or Kubernetes stacks. Use it when the workload has a real reason to stay close to data, latency and compliance requirements.'
   },
 
   {
@@ -754,7 +756,7 @@ await foreach (var update in agent.RunStreamingAsync(
         accent: 'teal'
       }
     ],
-    note: 'Same primitives you already run — now projected into Azure as managed resources.'
+    note: 'This architecture is layered. Azure cloud provides the control plane, Arc is the projection and identity bridge, Arc-enabled services are the managed middle layer, Azure Local is the on-prem runtime, and your physical infrastructure is the base. The important point is that these are the same primitives you already run, now represented as managed Azure resources.'
   },
 
   {
@@ -786,7 +788,7 @@ await foreach (var update in agent.RunStreamingAsync(
         { text: 'Disconnected mode is a deployment posture — chosen at design time' }
       ]
     },
-    note: 'Designed for sovereign, classified, maritime, factory and remote-site scenarios.'
+    note: 'This slide explains what happens when the WAN drops. In Azure Local, hypervisor, storage, workloads and local logs keep running. The local Arc agent caches policy and configuration. Disconnected operation is a posture you choose, not a failure mode, so design your updates and connectivity around it.'
   },
 
   {
@@ -818,7 +820,7 @@ await foreach (var update in agent.RunStreamingAsync(
         { text: 'Identity — Entra ID with offline token cache for disconnected windows' }
       ]
     },
-    note: 'Same ARM resource, two locations — you choose where it runs, Azure manages how.'
+    note: 'Resource projection is the magic of Arc. Local VMs, clusters and databases appear as Azure resources, with ARM metadata, policy and tags. Local agents reconcile desired state from Azure, and GitOps can deploy the same manifests to cloud and edge. This keeps the developer experience consistent across locations.'
   },
 
   {
@@ -849,7 +851,7 @@ await foreach (var update in agent.RunStreamingAsync(
         { text: 'Hybrid AI — local SLMs near the data, Azure OpenAI when scale wins' }
       ]
     },
-    note: 'Azure Local = control + compliance + flexibility — making hybrid a first-class architecture.'
+    note: 'This is where Azure Local adds real business value. It is about keeping regulated workloads, healthcare, manufacturing and retail close to the data while still enforcing centralized policy and security. Hybrid AI means local models for latency and sovereignty, and Azure OpenAI when scale or elasticity is the best fit.'
   },
 
   // ============================================================
@@ -861,7 +863,8 @@ await foreach (var update in agent.RunStreamingAsync(
     type: 'section',
     eyebrow: 'Next interface',
     title: 'Real-time AI Avatars on Azure',
-    subtitle: 'From a model and a UI to a living, grounded, enterprise-ready presence.'
+    subtitle: 'From a model and a UI to a living, grounded, enterprise-ready presence.',
+    note: 'Now we move to the new interface layer: AI Avatars. This is not just another chat experience. It is a real-time, grounded, enterprise-grade presence that listens, reasons and responds with voice and visuals. We are moving from typed prompts to interactive conversation.'
   },
 
   {
@@ -892,7 +895,7 @@ await foreach (var update in agent.RunStreamingAsync(
         { text: 'Brand & marketing — interactive product guides and digital hosts' }
       ]
     },
-    note: 'The interface is changing — from forms and chat bubbles to a face that talks back.'
+    note: 'An AI Avatar is more than a chatbot. It is a digital presence that listens, reasons and speaks in real time, grounded in your business knowledge. This makes it ideal for customer support, internal copilots, kiosks, training and branded experiences. The avatar is the new interface on top of the agent backend.'
   },
 
   {
@@ -932,7 +935,7 @@ await foreach (var update in agent.RunStreamingAsync(
         accent: 'blue'
       }
     ],
-    note: 'No glue scripts holding it together — every box is a managed Azure service.'
+    note: 'The Avatar stack combines frontend capture, Azure Speech for STT/TTS and rendering, Foundry to host the agent and tools, models for reasoning, and knowledge services for grounding. The platform layer supplies identity, secrets and telemetry. This is a managed architecture, not a brittle integration sketch.'
   },
 
   {
@@ -964,7 +967,7 @@ await foreach (var update in agent.RunStreamingAsync(
         { text: 'GitHub Codespaces / VS Code — same loop locally and in the cloud' }
       ]
     },
-    note: 'Designers and PMs live in Foundry; developers live in code — both edit the same project.'
+    note: 'There are two main build surfaces for Avatars. Foundry portal is where designers, product owners and prompt engineers create the agent, connect knowledge and run evaluations. Developers build the backend, SDK integration and CI/CD that make it production-ready. Both surfaces contribute to the same project and the same runtime, so collaboration is key.'
   },
 
   {
@@ -1005,7 +1008,7 @@ await foreach (var update in agent.RunStreamingAsync(
         accent: 'blue'
       }
     ],
-    note: 'RAG is a product, not a script — it has owners, SLAs and a backlog.'
+    note: 'Keeping the Avatar grounded is the hard part. This slide shows a real operational RAG pipeline: sources of truth, ingestion, chunking, embeddings, indexing, retrieval and evaluation. The goal is not just to build a one-time knowledge dump, but to operate a pipeline with freshness, governance and feedback.'
   },
 
   {
@@ -1038,7 +1041,7 @@ await foreach (var update in agent.RunStreamingAsync(
         { text: 'Observability — App Insights traces from click → token → phoneme' }
       ]
     },
-    note: 'The avatar is the face — the engineering discipline behind it is what makes it feel alive.'
+    note: 'For engineers, the Avatar is the visible outcome. Behind it are frontend session flows, backend token brokers, tool implementations, ingestion pipelines and IaC. You also operate identity, secrets, cost controls, latency SLOs, safety policies and observability. The face is only as strong as the engineering discipline under it.'
   },
 
   // ============================================================
@@ -1050,7 +1053,8 @@ await foreach (var update in agent.RunStreamingAsync(
     type: 'section',
     eyebrow: 'Data, but business-aware',
     title: 'Microsoft Fabric + Fabric IQ',
-    subtitle: 'From moving data to answering questions in business language.'
+    subtitle: 'From moving data to answering questions in business language.',
+    note: 'This section brings data intelligence into the story. Fabric IQ sits on top of Microsoft Fabric and translates raw data into business-aware answers. It is the semantic brain that makes Copilot and AI agents trustworthy for decision-making.'
   },
 
   {
@@ -1081,7 +1085,7 @@ await foreach (var update in agent.RunStreamingAsync(
         { text: 'Flags ambiguity early — "did you mean revenue net of returns?"' }
       ]
     },
-    note: 'Copilot = speed. Fabric IQ = trust. You need both for AI-assisted data work to ship.'
+    note: 'Fabric IQ adds the semantic layer that turns Fabric from a data platform into a business-aware platform. It knows your entities, measures, lineage and ownership, and it helps Copilot generate pipelines, queries and reports that match the business model. In AI-assisted analytics, speed alone is not enough; trust is what makes the output useful.'
   },
 
   {
@@ -1117,7 +1121,7 @@ await foreach (var update in agent.RunStreamingAsync(
         accent: 'teal'
       }
     ],
-    note: 'Each step removed glue. Fabric IQ removes the last big one — translating data into business meaning.'
+    note: 'This chart shows the evolution from SSIS and classic BI through Synapse and modern ELT to Fabric IQ. Each step removed manual glue work and brought data, semantics and analytics closer together. Fabric IQ is the last mile: it makes data meaningful to business users by capturing intent, relationships and definitions.'
   },
 
   {
@@ -1148,7 +1152,7 @@ await foreach (var update in agent.RunStreamingAsync(
         { text: 'Ambiguity is surfaced, not silently resolved — the model asks back' }
       ]
     },
-    note: 'The interface to data becomes the business model — SQL becomes an implementation detail.'
+    note: 'This slide shows how the surfaces connect back to your data. The semantic layer is the business model, and SQL becomes an implementation detail. Surfaces like Fabric, Copilot and custom apps all use the same project. The important message is that your data strategy is now defined by meaning and lineage, not by raw tables.'
   },
 
   {
@@ -1183,7 +1187,7 @@ await foreach (var update in agent.RunStreamingAsync(
         accent: 'teal'
       }
     ],
-    note: 'Schemas describe how data is stored. Ontologies describe what it means. Fabric IQ is where they meet.'
+    note: 'The architecture here is the end-to-end path from sources to business-aware answers. OneLake holds the data, mappings connect physical tables to semantic entities, Fabric IQ captures the business model, and surfaces consume it. This is how you move from data engineering to business intelligence that the business can trust.'
   },
 
   // ============================================================
@@ -1234,7 +1238,7 @@ await foreach (var update in agent.RunStreamingAsync(
         ]
       }
     ],
-    note: 'The cloud did not disappear — it grew a brain, learned to live at the edge, and started speaking your business language.'
+    note: 'As we wrap up, remember the themes we have visited. The cloud is still central, but it now includes AI agents, local edge extension and business-aware data. The same engineering disciplines apply: IaC, CI/CD, identity and governance. The future is about building systems that are smarter, more distributed and more connected to business meaning.'
   },
 
   {
@@ -1242,7 +1246,8 @@ await foreach (var update in agent.RunStreamingAsync(
     type: 'quote',
     eyebrow: 'One last thing',
     quote: 'Buckle up… we are living in times of a new revolution — and we are the builders that history books will be mentioning. Enjoy it!',
-    attribution: 'See you on the other side of the keynote.'
+    attribution: 'See you on the other side of the keynote.',
+    note: 'Close with energy. Remind the room that we are not observers of this change — we are building it. This revolution is not abstract; it is being written by the engineers and leaders in the room.'
   }
 ];
 

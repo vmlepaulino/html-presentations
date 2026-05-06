@@ -1,8 +1,9 @@
-import { Component, ChangeDetectionStrategy, HostListener, inject } from '@angular/core';
+import { Component, ChangeDetectionStrategy, HostListener, inject, effect, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { trigger, transition, style, animate } from '@angular/animations';
 
 import { SlideService } from '../../services/slide.service';
+import { PRESENTER_SCRIPTS, type PresenterScript } from '../../data/presenter-scripts.data';
 import { TitleSlideComponent } from '../slides/title-slide.component';
 import { BulletsSlideComponent } from '../slides/bullets-slide.component';
 import { TwoColumnSlideComponent } from '../slides/two-column-slide.component';
@@ -43,8 +44,8 @@ import { ReferencesSlideComponent } from '../slides/references-slide.component';
       </div>
 
       <!-- slide content -->
-      <div class="slide-area">
-        <div class="slide-frame" [@fade]="svc.index()" [ngSwitch]="svc.current().type">
+      <div class="slide-area" [class.presenter-mode]="presenterMode">
+        <div class="slide-frame" *ngIf="!presenterMode" [@fade]="svc.index()" [ngSwitch]="svc.current().type">
           <app-title-slide        *ngSwitchCase="'title'"        [slide]="svc.current()" />
           <app-section-slide      *ngSwitchCase="'section'"      [slide]="svc.current()" />
           <app-bullets-slide      *ngSwitchCase="'bullets'"      [slide]="svc.current()" [step]="svc.step()" />
@@ -54,6 +55,46 @@ import { ReferencesSlideComponent } from '../slides/references-slide.component';
           <app-code-slide         *ngSwitchCase="'code'"         [slide]="svc.current()" />
           <app-references-slide   *ngSwitchCase="'references'"   [slide]="svc.current()" />
         </div>
+
+        <ng-container *ngIf="presenterMode">
+          <ng-container [ngSwitch]="svc.current().type">
+            <aside
+              *ngSwitchCase="'two-column'"
+              class="presenter-panel presenter-panel--fullscreen presenter-panel--split"
+            >
+              <div class="presenter-panel__header">
+                <span class="presenter-panel__slide-number">Slide {{ svc.index() + 1 }} / {{ svc.total }}</span>
+                <span class="presenter-panel__title">{{ svc.current().title }}</span>
+              </div>
+
+              <div class="presenter-panel__split-grid">
+                <section class="presenter-panel__split-card">
+                  <div class="presenter-panel__split-label">{{ svc.current().left?.title || 'Left side' }}</div>
+                  <div class="presenter-panel__body presenter-panel__body--compact">
+                    {{ presenterScript().left || presenterScript().body || svc.current().note || 'No script available for this slide.' }}
+                  </div>
+                </section>
+
+                <section class="presenter-panel__split-card">
+                  <div class="presenter-panel__split-label">{{ svc.current().right?.title || 'Right side' }}</div>
+                  <div class="presenter-panel__body presenter-panel__body--compact">
+                    {{ presenterScript().right || presenterScript().body || svc.current().note || 'No script available for this slide.' }}
+                  </div>
+                </section>
+              </div>
+            </aside>
+
+            <aside *ngSwitchDefault class="presenter-panel presenter-panel--fullscreen">
+              <div class="presenter-panel__header">
+                <span class="presenter-panel__slide-number">Slide {{ svc.index() + 1 }} / {{ svc.total }}</span>
+                <span class="presenter-panel__title">{{ svc.current().title }}</span>
+              </div>
+              <div class="presenter-panel__body">
+                {{ presenterScript().body || svc.current().note || 'No script available for this slide.' }}
+              </div>
+            </aside>
+          </ng-container>
+        </ng-container>
       </div>
 
       <!-- footer with controls + slide indicator -->
@@ -74,6 +115,40 @@ import { ReferencesSlideComponent } from '../slides/references-slide.component';
 })
 export class SlideContainerComponent {
   readonly svc = inject(SlideService);
+  readonly presenterScript = computed<PresenterScript>(() => PRESENTER_SCRIPTS[this.svc.index()] ?? {});
+  readonly presenterMode = typeof window !== 'undefined'
+    && this.isPresenterRoute(window.location.href);
+  private readonly storageKey = 'presentation-current-slide';
+
+  constructor() {
+    if (typeof window !== 'undefined') {
+      window.addEventListener('storage', this.onStorageEvent);
+
+      if (!this.presenterMode) {
+        // Only the main window writes to localStorage — presenter only reads.
+        effect(() => {
+          localStorage.setItem(this.storageKey, JSON.stringify({
+            index: this.svc.index(),
+            step: this.svc.step(),
+            timestamp: Date.now()
+          }));
+        });
+      }
+    }
+  }
+
+  private onStorageEvent = (event: StorageEvent): void => {
+    if (event.key !== this.storageKey || !event.newValue) return;
+    try {
+      const next = JSON.parse(event.newValue) as { index: number; step: number };
+      if (next.index !== this.svc.index() || next.step !== this.svc.step()) {
+        this.svc.index.set(next.index);
+        this.svc.step.set(next.step);
+      }
+    } catch {
+      // ignore invalid storage payload
+    }
+  };
 
   @HostListener('window:keydown', ['$event'])
   onKey(e: KeyboardEvent): void {
@@ -99,4 +174,10 @@ export class SlideContainerComponent {
 
   next(e: Event): void { e.stopPropagation(); this.svc.next(); }
   prev(e: Event): void { e.stopPropagation(); this.svc.prev(); }
+
+  private isPresenterRoute(href: string): boolean {
+    const url = new URL(href);
+    return url.searchParams.get('presenter') === 'true'
+      || url.pathname.split('/').includes('presenter=true');
+  }
 }
