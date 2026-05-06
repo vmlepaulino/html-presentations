@@ -9,166 +9,202 @@ const p = (left: string, right: string): PresenterScript => ({ left, right });
 
 // Keep this array in the same order as SLIDES in slides.data.ts.
 export const PRESENTER_SCRIPTS: PresenterScript[] = [
+  // 1. Title
   s(
-    `I am opening with the path I found most useful across the conference: cloud foundations, agents, Azure Local, avatars, and business data. I will keep it practical and speak as someone translating the talks into something a team can actually use.`
+    'This deck is about the operating model the team needs when cloud, agents, hybrid runtime, real-time interfaces, and semantic data all belong in one system. The goal is to make the responsibility and risk of each layer explicit so the team can build and operate it like a production platform.'
   ),
 
+  // 2. Innovation Without Compromise
   p(
-    `I would frame the tension this way: AI is moving fast, but trust, residency, and compliance still set the boundaries. That was the recurring theme I kept hearing in the keynote.`,
-    `Azure's answer, as I heard it, is not to slow innovation down, but to make governance part of the default architecture. That balance is what I would carry into the rest of the deck.`
+    'The constraint here is that AI velocity does not relax sovereignty, residency, or compliance. Those requirements still define the architectural envelope.',
+    'The platform response is to make security, governance, and control part of the default architecture rather than add them after the fact.'
   ),
 
+  // 3. What this means for developers & engineering
   p(
-    `For developers, I would translate the keynote into a practical habit: build with models, agents, tools, and memory, and treat data residency and identity as part of the API, not an afterthought.`,
-    `For engineering teams, I would read this as a design brief for sovereignty, observability, and auditability from day one. The goal is to move fast without losing the controls that keep the system trustworthy.`
+    'For developers, the contract now includes models, agents, tools, memory, identity, and residency, and each of those choices changes latency, correctness, and auditability.',
+    'For engineering teams, observability, policy, multi-region design, and audit are part of the platform design because those controls are what let us run AI systems safely at production scale.'
   ),
 
+  // 4. The Future of AI is Agentic
   s(
-    `This is the turn where the story moves from cloud platforms to agentic systems. I would use it to signal that the next part is less about AI in theory and more about how an agent actually works.`
+    'This section moves us from platform principles to the agent runtime. Once AI is in the execution path, reasoning, tool use, and policy become one control surface instead of separate concerns.'
   ),
 
+  // 5. Inside an Agent
   s(
-    `When I saw this diagram, I liked how simple it stayed. I would explain an agent as inputs on one side, capabilities in the middle, and outputs on the other, because that keeps the idea grounded instead of magical.`
+    'Read an agent as a control loop. Inputs are the evidence, capabilities are the reasoning and execution layer, and outputs are the side effects we allow. That separation is what makes the system testable, observable, and governable.'
   ),
 
+  // 6. Design patterns & use cases
   p(
-    `On the pattern side, the useful lesson for me was that there is no single agent shape. Sometimes you need one tool-using agent, and sometimes you need multiple agents, a human review step, or a critic loop.`,
-    `On the use-case side, I would point to customer service, research, IT ops, and developer productivity as the places where these patterns feel concrete. That made the topic feel less theoretical to me.`
+    'These patterns are not interchangeable. Single-agent automation, orchestration, human-in-the-loop, retrieval grounding, and critic loops each change the approval boundary, the failure mode, and the observability surface.',
+    'The first adoption zones are support, research, IT operations, and developer productivity, because those workloads benefit from automation without eliminating human control.'
   ),
 
+  // 33. Building agents with the Microsoft Agent Framework
   s(
-    `I would not read every line out loud, but I would point to the pattern: the same SDK can support a chatbot, a workflow, or a fan-out design. That was the most useful part for me, because it showed the architecture choices more than just the syntax.`
+    'This example is about composition, not syntax. The same SDK can implement a streaming chatbot, a sequential workflow, or a fan-out/fan-in pattern. The point for the team is that agent architecture is composition, not a new language.'
   ),
 
+  // 35. How do you ship and host this code?
   p(
-    `I would tell the room that the Agent Framework is a library, so the application model is your choice. Console app, web API, worker, Functions, or Teams are all valid depending on how the work needs to surface.`,
-    `Then I would connect that to hosting: App Service, Container Apps, AKS, Foundry, Azure Functions, edge, or local dev all fit the same code path. The nice part is that the business logic does not have to change when the host does.`
+    'The application model is a separate choice from hosting. We can expose the same agent as a console app, web API, worker, Functions app, or Teams integration depending on how it should surface.',
+    'The hosting target changes the SLA, scaling model, and operational envelope, not the core logic. App Service, Container Apps, AKS, Foundry, Functions, edge, and local dev can all run the same business behavior.'
   ),
 
+  // 7. Build agents - for every audience
   p(
-    `For developers, I would highlight the pro-code tools: Copilot, the Agent Framework, Foundry, and the broader SDK ecosystem. That is the path for people who want to stay close to code and orchestration.`,
-    `For makers, I would point to Copilot Studio and the low-code surface. What I took away is that both groups can work at different speeds and still land on the same governance and runtime fabric.`
+    'Pro-code and low-code are different entry points, not different platforms. If the team needs deep control, the Agent Framework, Foundry, and the SDKs keep us close to orchestration and implementation.',
+    'If the team needs faster domain delivery, Copilot Studio and visual tooling still land on the same runtime and governance surface.'
   ),
 
+  // 36. Microsoft Foundry
   s(
-    `This is where I would pause and say the story is shifting into runtime and governance. From the sessions I saw, Foundry is the place where agents move from demo territory into something you can actually run and manage.`
+    'Foundry is the point where a prototype becomes an operable system. The project, runtime, and lifecycle controls come together here, so this is where we turn an agent into something the team can govern and support.'
   ),
 
+  // 8. Microsoft Foundry - AI Agent Ecosystem
   s(
-    `I liked this slide because it makes the ecosystem feel layered instead of mysterious. Channels, agents, tools, knowledge, models, identity, and governance each have a role, and that makes the platform easier to explain to a new audience.`
+    'Read this ecosystem as the control plane for the whole agent stack. Channels and surfaces define where the agent appears, agents define behavior, knowledge and tools define grounding and action, models supply reasoning, and identity and governance keep the system operable at scale.'
   ),
 
+  // 9. A Foundry project is just Azure resources
   p(
-    `I would explain the left side as the normal Azure project experience: resources, settings, identities, and permissions. It feels familiar if you already live in Azure, which is probably why the talk landed well with me.`,
-    `On the right, the message is that Foundry does not replace Azure's control plane. It sits on top of it, so the project can be described, reviewed, and deployed like the rest of the platform.`
+    'A Foundry project is still Azure resources, identities, and policies. That means it fits the same control plane the rest of the platform uses.',
+    'That matters because deployment, audit, and policy enforcement stay inside Azure\'s operating model instead of becoming a separate application-specific control system.'
   ),
 
+  // 10. What a Foundry project looks like in a repo
   s(
-    `I would use this slide to show that the project is meant to feel familiar to any Azure team. What stood out to me is that the repo stays disciplined: infrastructure, source, scripts, and tests each have a clear job.`
+    'The repo matters because it turns portal configuration into source-controlled artifacts. That is the difference between a one-off demo and a system we can review, test, and repeat.'
   ),
 
+  // 11. From commit to a deployed agent
   p(
-    `On the commit side, I would keep the story simple: check in the code, run the checks, and let the repo capture the changes. That was the part that felt most familiar to me as an engineer.`,
-    `On the deployment side, I would treat the pipeline as the bridge from source to a live agent. The important bit is that the same release discipline still applies, even though the workload is now AI-driven.`
+    'The release flow should stay familiar: commit, validate, provision, deploy, and verify. That keeps the agent lifecycle disciplined.',
+    'The operating principle is desired state, not manual steps. For a team, that is what keeps change safe and makes rollback and review possible.'
   ),
 
+  // 37. Azure Local
   s(
-    `This is the handoff to the hybrid part of the talk. I am using it to show why some workloads need to stay close to the data, even when the rest of the platform stays cloud-shaped.`
+    'Here locality, latency, and resilience become design constraints rather than deployment preferences. That is the difference between a cloud-only assumption and an architecture that has to survive real-world boundaries.'
   ),
 
+  // 12. What is Azure Local - and why now?
   p(
-    `I would frame Azure Local as the answer for teams that need cloud-style management but cannot always depend on a public-region round trip. The why-now part, for me, is about latency, sovereignty, and resilience.`,
-    `The second half of the story is that it is not just an edge box. It is the Azure operating model brought closer to where the data and the workload actually live.`
+    'Azure Local is the control model we use when a workload has to stay close to data, devices, or an on-prem boundary.',
+    'The Azure operating model still applies, but execution moves closer to the physical hardware and the data that cannot leave it.'
   ),
 
+  // 13. Connected vs. Disconnected - and what syncs
   p(
-    `In connected mode, I would explain it as managed from Azure but running locally. That gives you the cloud operating model without forcing every decision to happen in the cloud.`,
-    `In disconnected mode, the important detail for me is that the site keeps working even when the network does not. That changes how you think about updates, identity, and operational fallbacks.`
+    'In connected mode, Azure continues to manage the site and the site reports state back. That gives us uniform policy and telemetry.',
+    'In disconnected mode, the local environment keeps running even without WAN access. That changes the contract because local state and cached policy have to carry the workload.'
   ),
 
+  // 14. Scenarios for DevOps & Infrastructure teams
   p(
-    `I would use this side to show the DevOps angle: the same deployment, policy, and automation habits can extend to places that used to feel outside the cloud boundary.`,
-    `And on the infrastructure side, the talk made sense to me as a way to keep operations close to the hardware while still keeping the Azure control model in charge.`
+    'For DevOps and infrastructure teams, the important shift is that the same automation discipline has to extend to the edge.',
+    'That matters because identity, policy, and monitoring are what keep a distributed environment manageable instead of turning it into isolated islands.'
   ),
 
+  // 15. What Azure Local IS - and what it is NOT
   p(
-    `What Azure Local is, in the way I would explain it, is a control model that extends Azure to customer-owned hardware. It is about keeping the operating model consistent, not pretending the hardware disappeared.`,
-    `What it is not, as I would say it to a new audience, is a replacement for every existing on-prem stack or a magic fix for every hybrid problem. You still choose it for the cases where proximity and control really matter.`
+    'Azure Local is an extension of the Azure operating model to customer-owned hardware. It is about consistency in management and control.',
+    'It is not a universal replacement for every on-prem stack. We should choose it for the cases where proximity, sovereignty, or resilience really matter.'
   ),
 
+  // 16. The stack - Azure on top, your infra at the bottom
   s(
-    `I would read this stack from top to bottom and keep it simple: Azure gives the control plane, Arc bridges management, Azure Local runs the workload, and your hardware sits at the base. That layered view made the whole thing easier to explain.`
+    'Read this stack as the boundary map between the Azure control plane, the local projection layer, the runtime, and the physical infrastructure. That separation tells the team which responsibilities are centralized, which are local, and where the system needs to keep working if a boundary fails.'
   ),
 
+  // 17. How it keeps running offline
   p(
-    `The left side of the story is the local runtime: workloads, storage, and logs keep moving even if the WAN drops. That was one of the clearest this-matters-in-real-life moments for me.`,
-    `The right side is the local management layer caching enough policy and configuration to keep the site alive. I would describe that as a posture you choose deliberately, not just an emergency fallback.`
+    'When connectivity drops, workloads, storage, and logs still need to run locally. For some systems, that is not a fallback; it is the requirement.',
+    'Because of that, remote management is no longer authoritative in the moment. Local state and cached policy become part of the operating contract.'
   ),
 
+  // 18. Syncing resources across on-prem and Azure
   p(
-    `What I would call out here is the projection model: local things show up as Azure resources, which keeps the developer and operator experience consistent. That makes the hybrid story much less awkward.`,
-    `Then the sync story becomes a question of desired state rather than one-off manual coordination. I would explain it as one control plane, two places of execution.`
+    'Projection is what makes local resources show up as Azure resources. That gives the team one management surface across both environments.',
+    'Sync matters because desired state, metadata, and selected configuration can reconcile across the boundary. That is how we keep drift under control.'
   ),
 
+  // 19. Use cases, security posture & hybrid AI
   p(
-    `On the use-case side, the obvious fits are the places where latency, residency, or resilience are non-negotiable. That is what made the hybrid story feel concrete to me rather than abstract.`,
-    `On the security side, I would stress that the same identity, policy, and monitoring mindset still applies. The AI part becomes a choice about where the model runs, not a separate trust model.`
+    'These are the workload classes where Azure Local earns its place: regulated industries, remote operations, manufacturing, healthcare, and other latency-bound systems.',
+    'The security posture stays rooted in the same identity, policy, and monitoring model, while model placement can move closer to the data.'
   ),
 
+  // 20. Real-time AI Avatars on Azure
   s(
-    `This is where the talk shifts again, this time into the experience layer. I would tell a new audience that the avatar is not just a visual flourish, but a real-time interface on top of the same agent backend.`
+    'A real-time experience only works when speech, state, and orchestration are engineered together as one system, because the user feels the weakest of those three parts immediately.'
   ),
 
+  // 21. Beyond a chatbot - an interactive digital presence
   p(
-    `I would describe the left side as the experience people actually see: voice, face, and real-time response stitched together into something that feels present. That is a very different feel from a standard chat window.`,
-    `On the right, I would point out where that experience is useful: support, internal copilots, kiosks, training, and branded interactions. It felt like a practical interface layer, not just a demo flourish.`
+    'An avatar is a composed interface, not a single feature. Voice, face, and response are stitched on top of the same reasoning backend.',
+    'That matters because it turns support, copilots, kiosks, training, and branded experiences into production interfaces rather than demos.'
   ),
 
+  // 22. The services behind a real-time Avatar
   s(
-    `What I liked here is how the avatar stack separates the moving parts instead of pretending they are one product. The UI, speech, models, knowledge, and platform services each do their own job, which makes the whole thing easier to reason about.`
+    'Read this avatar stack as the latency and failure budget for the experience: front end, speech, agent orchestration, models, retrieval, and platform services each absorb a different concern. The architecture matters because each layer has different operational risk, and this is why the avatar cannot be treated as only a front-end feature.'
   ),
 
+  // 23. Where you actually build the Avatar
   p(
-    `For the portal side, I would say this is where designers and prompt folks get to shape the agent, connect knowledge, and validate the experience. That keeps the non-code work visible, which I liked.`,
-    `For the code side, I would frame it as the place where developers wire up the backend, the SDKs, and the release process. The split feels healthy because both sides are needed to make the experience real.`
+    'Foundry is the design-time surface where prompt design, knowledge wiring, and evaluation happen. That is where we shape behavior before code ships.',
+    'The code surface handles the backend, SDK integration, and infrastructure. That is what makes the experience reliable and production-ready.'
   ),
 
+  // 24. How the Avatar stays current with your business
   s(
-    `Keeping the avatar current is the hard part, and that was clear in the talks. I would explain this slide as an operational pipeline, not a one-time content upload, because freshness and governance are what make the experience usable.`
+    'Keeping the avatar current is really a data pipeline problem. Source systems, ingestion, chunking, indexing, retrieval, and evaluation are what keep the experience grounded in actual business state.'
   ),
 
+  // 25. What devs & engineers actually own
   p(
-    `I would use this side to ground the work in code and infrastructure: the frontend, token broker, tools, ingestion jobs, and IaC all still need real engineering. That is the part that makes the avatar sustainable.`,
-    `And I would use the right side to remind the room that operations matters just as much: identity, secrets, cost, latency, safety, and observability are the things that keep the experience trustworthy. That balance felt very real to me.`
+    'Engineers build the seams: frontend session flow, token brokerage, tool implementations, ingestion jobs, and infrastructure as code. Those are the parts that make the system shippable.',
+    'Engineers also operate the system: identity, secrets, cost, latency, safety, and observability are the controls that keep it trustworthy over time.'
   ),
 
+  // 26. Microsoft Fabric + Fabric IQ
   s(
-    `This is the data-intelligence part of the story. From what I heard, Fabric IQ matters because it gives Copilot and agents a business model they can trust instead of just raw tables.`
+    'Treat this as a semantics problem. If the agent does not understand business meaning, every downstream answer is just a faster way to be wrong.'
   ),
 
+  // 27. Fabric IQ - the semantic brain on top of Fabric
   p(
-    `What I heard on the Fabric IQ side is that the semantic layer is what gives the platform business meaning. It knows the entities, measures, and lineage so Copilot is not guessing.`,
-    `On the Copilot side, the value is that generation becomes grounded in that model. I would explain it as letting natural language work against a business vocabulary that the platform already understands.`
+    'Fabric IQ adds the semantic model: entities, measures, lineage, and governance-aware definitions. That gives the platform a business vocabulary instead of just raw tables.',
+    'Copilot uses that layer to ground generation. What matters here is that the output is shaped by certified business meaning, not whatever schema happens to be available.'
   ),
 
+  // 28. From SSIS to Fabric IQ - the line, in one stack
   s(
-    `I would use this slide to show the journey from classic Microsoft data tooling to a more semantic, AI-native stack. The main message for me is that each step reduced glue work and brought the business meaning closer to the data itself.`
+    'The progression from classic Microsoft data stacks to Fabric IQ shows the same pattern we have seen elsewhere: each generation removed glue work and moved more meaning into the platform, and Fabric IQ is where the semantic contract becomes first-class.'
   ),
 
+  // 29. Devs, data engineers, data scientists - closer to the business
   p(
-    `I would describe the shift here as less time wiring tools and more time shaping meaning. Data engineers, scientists, and developers all get pulled closer to the actual business model.`,
-    `The right side is the big payoff: people can ask in business language, and the platform can answer with governed semantics and lineage. That felt like the practical reason Fabric IQ matters.`
+    'The work shifts across roles, but the common theme is that everyone gets closer to the business model. Data engineers own the pipeline and semantic contract, developers consume semantic endpoints, and analysts work in business terms.',
+    'The payoff is that queries resolve against certified entities and measures, and ambiguity is handled in the semantic layer instead of leaking into every consumer.'
   ),
 
+  // 30. From your databases to a business-aware semantic layer
   s(
-    `This is the part where the story becomes more business-facing. I would explain it as moving from raw databases to a semantic layer that can answer in the language the business actually uses.`
+    'This is the end-to-end path from source systems to business-aware answers. The important consideration is that physical storage is no longer where business meaning lives; the semantic layer is.'
   ),
 
+  // 31. From Cloud to Agents - what to take home
   s(
-    `I would close by pulling the themes back together: cloud, edge, AI, identity, governance, and business meaning all still matter, but they now sit in one conversation. What I would want people to remember is that the same engineering discipline still applies, even when the workload looks very different.`
+    'Cloud remains the base operating model, but it now extends to agents, edge execution, real-time interfaces, and semantic data. The engineering job is to treat AI as platform capability, not a side feature.'
   ),
 
+  // 32. Quote / closing
   s(
-    `I would end on this quote because it keeps the energy human. The room I heard this in felt like a reminder that we are not just watching the change; we are the people building the next version of it.`
+    'These primitives are ours to operationalize. The standard is a system that is safe, observable, and maintainable over time, not just impressive in a demo.'
   )
 ];

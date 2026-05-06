@@ -84,6 +84,37 @@ import { ReferencesSlideComponent } from '../slides/references-slide.component';
               </div>
             </aside>
 
+            <aside
+              *ngSwitchCase="'architecture'"
+              class="presenter-panel presenter-panel--fullscreen presenter-panel--architecture"
+            >
+              <div class="presenter-panel__header">
+                <span class="presenter-panel__slide-number">Slide {{ svc.index() + 1 }} / {{ svc.total }}</span>
+                <span class="presenter-panel__title">{{ svc.current().title }}</span>
+              </div>
+
+              <div class="presenter-panel__intro presenter-panel__body--compact">
+                {{ presenterScript().body || svc.current().note || 'No script available for this slide.' }}
+              </div>
+
+              <div class="presenter-panel__layer-list">
+                <section
+                  class="presenter-panel__layer-row"
+                  *ngFor="let layer of svc.current().layers; trackBy: trackLayer"
+                >
+                  <div
+                    class="presenter-panel__layer-label"
+                    [attr.data-accent]="layer.accent || 'blue'"
+                  >
+                    {{ layer.label }}
+                  </div>
+                  <div class="presenter-panel__layer-detail presenter-panel__body presenter-panel__body--compact">
+                    {{ layer.detail || 'No detail available.' }}
+                  </div>
+                </section>
+              </div>
+            </aside>
+
             <aside *ngSwitchDefault class="presenter-panel presenter-panel--fullscreen">
               <div class="presenter-panel__header">
                 <span class="presenter-panel__slide-number">Slide {{ svc.index() + 1 }} / {{ svc.total }}</span>
@@ -174,6 +205,10 @@ export class SlideContainerComponent {
 
   next(e: Event): void { e.stopPropagation(); this.svc.next(); }
   prev(e: Event): void { e.stopPropagation(); this.svc.prev(); }
+
+  trackLayer(index: number): number {
+    return index;
+  }
 
   private isPresenterRoute(href: string): boolean {
     const url = new URL(href);
