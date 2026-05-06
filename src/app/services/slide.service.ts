@@ -51,9 +51,7 @@ export class SlideService {
       case 'bullets':
         return slide.bullets?.length ?? 0;
       case 'two-column': {
-        const l = slide.left?.bullets.length ?? 0;
-        const r = slide.right?.bullets.length ?? 0;
-        return l + r;
+        return 2;
       }
       case 'architecture':
         return slide.layers?.length ?? 0;

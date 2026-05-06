@@ -17,11 +17,11 @@ import { Slide } from '../../models/slide.model';
         <p class="subtitle">{{ slide.subtitle }}</p>
       }
       <div class="grid">
-        <div class="card" [attr.data-accent]="slide.left?.accent || 'blue'">
+        <div class="card" [class.visible]="step >= 1" [attr.data-accent]="slide.left?.accent || 'blue'">
           @if (slide.left?.title) { <h3>{{ slide.left?.title }}</h3> }
           <ul>
-            @for (b of slide.left?.bullets; track $index; let i = $index) {
-              <li [class.visible]="i < step">
+            @for (b of slide.left?.bullets; track $index) {
+              <li>
                 <span class="bullet-text">{{ b.text }}</span>
                 @if (b.sub?.length) {
                   <ul class="sub">
@@ -34,11 +34,11 @@ import { Slide } from '../../models/slide.model';
             }
           </ul>
         </div>
-        <div class="card" [attr.data-accent]="slide.right?.accent || 'purple'">
+        <div class="card" [class.visible]="step >= 2" [attr.data-accent]="slide.right?.accent || 'purple'">
           @if (slide.right?.title) { <h3>{{ slide.right?.title }}</h3> }
           <ul>
-            @for (b of slide.right?.bullets; track $index; let i = $index) {
-              <li [class.visible]="i < step - leftCount">
+            @for (b of slide.right?.bullets; track $index) {
+              <li>
                 <span class="bullet-text">{{ b.text }}</span>
                 @if (b.sub?.length) {
                   <ul class="sub">
@@ -93,6 +93,15 @@ import { Slide } from '../../models/slide.model';
       border-radius: var(--radius-lg);
       padding: 0.9rem 1.1rem;
       box-shadow: var(--shadow-card);
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 320ms ease, transform 320ms ease;
+      pointer-events: none;
+    }
+    .card.visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
     }
     .card[data-accent="blue"]   { border-top-color: var(--color-primary); }
     .card[data-accent="teal"]   { border-top-color: var(--color-teal); }
@@ -116,13 +125,6 @@ import { Slide } from '../../models/slide.model';
       color: var(--color-text-secondary);
       line-height: 1.35;
       font-size: 0.8rem;
-      opacity: 0;
-      transform: translateY(4px);
-      transition: opacity 320ms ease, transform 320ms ease;
-    }
-    li.visible {
-      opacity: 1;
-      transform: translateY(0);
     }
     li::before {
       content: '';
@@ -157,8 +159,4 @@ import { Slide } from '../../models/slide.model';
 export class TwoColumnSlideComponent {
   @Input({ required: true }) slide!: Slide;
   @Input() step = 0;
-
-  get leftCount(): number {
-    return this.slide.left?.bullets.length ?? 0;
-  }
 }
