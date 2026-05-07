@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { trigger, transition, style, animate } from '@angular/animations';
 
 import { SlideService } from '../../services/slide.service';
+import { Slide } from '../../models/slide.model';
 import { PRESENTER_SCRIPTS, type PresenterScript } from '../../data/presenter-scripts.data';
 import { TitleSlideComponent } from '../slides/title-slide.component';
 import { BulletsSlideComponent } from '../slides/bullets-slide.component';
@@ -37,7 +38,7 @@ import { ReferencesSlideComponent } from '../slides/references-slide.component';
     ])
   ],
   template: `
-    <div class="stage" (click)="onStageClick($event)">
+    <div class="stage" [class.presenter-mode]="presenterMode" (click)="onStageClick($event)">
       <!-- top progress bar -->
       <div class="progress">
         <div class="progress-fill" [style.width.%]="svc.progress()"></div>
@@ -129,7 +130,7 @@ import { ReferencesSlideComponent } from '../slides/references-slide.component';
       </div>
 
       <!-- footer with controls + slide indicator -->
-      <footer class="footer">
+      <footer *ngIf="presenterMode" class="footer">
         <div class="presenter">
           <span class="brand-dot"></span>
           From Cloud to Agents · Global Azure 2026
@@ -153,10 +154,11 @@ export class SlideContainerComponent {
 
   constructor() {
     if (typeof window !== 'undefined') {
+      this.restoreStateFromStorage();
       window.addEventListener('storage', this.onStorageEvent);
 
-      if (!this.presenterMode) {
-        // Only the main window writes to localStorage — presenter only reads.
+      if (this.presenterMode) {
+        // The presenter window writes state; the audience window only mirrors it.
         effect(() => {
           localStorage.setItem(this.storageKey, JSON.stringify({
             index: this.svc.index(),
@@ -183,6 +185,7 @@ export class SlideContainerComponent {
 
   @HostListener('window:keydown', ['$event'])
   onKey(e: KeyboardEvent): void {
+    if (!this.presenterMode) return;
     if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
       e.preventDefault();
       this.svc.next();
@@ -197,6 +200,7 @@ export class SlideContainerComponent {
   }
 
   onStageClick(e: MouseEvent): void {
+    if (!this.presenterMode) return;
     // ignore clicks on links / buttons
     const target = e.target as HTMLElement;
     if (target.closest('a, button')) return;
@@ -208,6 +212,45 @@ export class SlideContainerComponent {
 
   trackLayer(index: number): number {
     return index;
+  }
+
+  private restoreStateFromStorage(): void {
+    try {
+      const raw = localStorage.getItem(this.storageKey);
+      if (!raw) return;
+
+      const next = JSON.parse(raw) as { index?: number; step?: number };
+      if (typeof next.index !== 'number' || typeof next.step !== 'number') return;
+
+      this.svc.index.set(this.clampIndex(next.index));
+      this.svc.step.set(this.clampStep(this.svc.current(), next.step));
+    } catch {
+      // Ignore invalid storage payloads and start from the default state.
+    }
+  }
+
+  private clampIndex(index: number): number {
+    if (!Number.isFinite(index)) return 0;
+    return Math.max(0, Math.min(Math.trunc(index), this.svc.total - 1));
+  }
+
+  private clampStep(slide: Slide, step: number): number {
+    const max = this.maxStepForSlide(slide);
+    if (!Number.isFinite(step)) return 0;
+    return Math.max(0, Math.min(Math.trunc(step), max));
+  }
+
+  private maxStepForSlide(slide: Slide): number {
+    switch (slide.type) {
+      case 'bullets':
+        return slide.bullets?.length ?? 0;
+      case 'two-column':
+        return 2;
+      case 'architecture':
+        return slide.layers?.length ?? 0;
+      default:
+        return 0;
+    }
   }
 
   private isPresenterRoute(href: string): boolean {
