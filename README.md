@@ -1,6 +1,6 @@
-# From Cloud to Agents - Global Azure 2026
+# Html Presentations Application
 
-A single-page Angular presentation app for the talk **"From Cloud to Agents: Building AI-Centric Systems on Azure"**.
+In the context to share what I have seen at Azure Global Event I have prompt Claude and Codex to help me build a single-page Angular presentation app for the talk **"From Cloud to Agents: Building AI-Centric Systems on Azure"**. At the end when it was useful with the content to be presented based on my notes I also peek into the generated code and I saw that it was also created was a nice framework to create presentations in a data driven reusable way.
 
 This project is intentionally web-native. It is not a PowerPoint export. The slides are rendered in Angular, the content is data-driven, and the presenter view is built into the same app.
 
